@@ -1,0 +1,13 @@
+snippet pfunc
+	${1:public}${2}function ${3}
+	{
+		${4}
+	}
+
+snippet ckrule
+	'${1:field}' => array(
+		'${2:rule}' => array(
+			'rule' => '$2',
+			'message' => '${3:message}'
+		)
+	)

@@ -1,0 +1,159 @@
+<?php
+App::uses('AppController', 'Controller');
+
+class ${1}Controller extends AppController {
+
+	/**
+	 * ${3:admin_}index method
+	 *
+	 * @author Patrick Maciel <patrickmaciel.info@gmail.com>
+	 * @version ${2:1.0}
+	 * @since $2
+	 * @param
+	 * @return
+	 */
+	public function $3index()
+	{
+		$this->${4:Model}->recursive = 0;
+
+		if ($this->request->is('post')) {
+
+			if (isset($this->request->data['$4']['name']) 
+				AND $this->request->data['$4']['name'] != null) {
+
+				$this->paginate = array(
+					'conditions' => array(
+						'$4.name LIKE' => '%' . $this->request->data['$4']['name'] . '%'
+					)
+				);
+
+			}
+
+		}
+
+		$this->set('${5:var_plural}', $this->paginate());
+		$this->set('title_for_layout', '${6:br_plural}');
+	}
+
+	/**
+	 * $3create method
+	 *
+	 * @author Patrick Maciel <patrickmaciel.info@gmail.com>
+	 * @version $2
+	 * @since $2
+	 * @param
+	 * @return
+	 */
+	public function $3create()
+	{
+		if ($this->request->is('post')) {
+			$this->$4->create();
+
+			if ($this->$4->save($this->request->data)) {
+
+				$this->Session->setFlash(__('Registro criado com sucesso', '$3success', array('class' => 'flash alert success')));
+				$this->redirect(array('action' => 'index'));
+
+			} else {
+
+				$this->Session->setFlash(__('Ocorreu um erro ao salvar este registro', '$3error', array('class' => 'flash alert danger')));
+
+			}
+		}
+
+		$this->set('title_for_layout', 'Cadastrar ${7:br_singular}');
+	}
+
+	/**
+	 * $3edit method
+	 *
+	 * @author Patrick Maciel <patrickmaciel.info@gmail.com>
+	 * @version $2
+	 * @since $2
+	 * @param integer	id
+	 * @return
+	 */
+	public function $3edit($id = null)
+	{
+		$this->$4->id = $id;
+		if (!$this->$4->exists()) {
+			throw new NotFoundException('Registro não encontrado');
+		}
+		
+		if ($this->request->is('post')) {
+			$this->$4->create();
+
+			if ($this->$4->save($this->request->data)) {
+
+				$this->Session->setFlash('Registro editado com sucesso', '$3success', array('class' => 'flash alert success'));
+				$this->redirect(array('action' => 'index'));
+
+			} else {
+
+				$this->Session->setFlash('Ocorreu um erro ao editar este registro', '$3error', array('class' => 'flash alert danger'));
+
+			}
+
+		} else {
+
+			$this->request->data = $this->$4->read(null, $id);
+
+		}
+
+		$this->set('title_for_layout', 'Editar $7');
+	}
+
+	/**
+	 * $3show method
+	 *
+	 * @author Patrick Maciel <patrickmaciel.info@gmail.com>
+	 * @version $2
+	 * @since $2
+	 * @param integer id
+	 * @return
+	 */
+	public function $3show($id = null)
+	{
+		$this->$4->id = $id;
+		if (!$this->$4->exists()) {
+			throw new NotFoundException('Registro não encontrado');
+		}
+
+		$this->set('${8:var_singular}', $this->$4->read(null, $id));
+		$this->set('title_for_layout', 'Visualizar $7');
+	}
+
+	/**
+	 * $3destroy method
+	 *
+	 * @author Patrick Maciel <patrickmaciel.info@gmail.com>
+	 * @version $2
+	 * @since $2
+	 * @param integer $id
+	 * @return
+	 */
+	public function $3destroy($id = null)
+	{
+		if (!$this->request->is('post')) {
+			throw new MethodNotAllowedException('Operação não permitida');
+		}
+
+		$this->$4->id = $id;
+		if (!$this->$4->exists()) {
+			throw new NotFoundException('Registro não encontrado');
+		}
+
+		if ($this->$4->delete($id)) {
+
+			$this->Session->setFlash('Registro excluído com sucesso', '$3success', array('class' => 'flash alert success'));
+
+		} else {
+
+			$this->Session->setFlash('Ocorreu um erro ao excluir este registro', '$3error', array('class' => 'flash alert danger'));
+
+		}
+
+		$this->redirect($this->referer());
+	}
+
+}

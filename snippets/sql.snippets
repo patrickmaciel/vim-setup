@@ -1,0 +1,27 @@
+snippet mytb
+	create table ${1} (
+		id int not null auto_increment primary key,
+		${2}
+	);
+
+snippet mytbdf
+	create table ${1} (
+		id int not null auto_increment primary key,
+		name varchar(80) not null,
+		description text null,
+		${2}
+		index ${3}_name (name)
+	);
+
+snippet mytbck
+	created datetime null,
+	modified datetime null,
+	active boolean not null default 1${1}
+
+snippet mytblr
+	created_at datetime null,
+	updated_at datetime null,
+	deleted_at datetime null,${1}
+
+snippet myfk
+	CONSTRAINT ${1} FOREIGN KEY (${2}) REFERENCES ${3}(${4:id}) ON DELETE RESTRICT ON UPDATE RESTRICT${5}
